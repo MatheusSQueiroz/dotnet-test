@@ -1,3 +1,5 @@
+using donet_test.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace donet_test
 {
@@ -7,16 +9,22 @@ namespace donet_test
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+           
+            var connectionString = builder.Configuration.
+                    GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(connectionString)
+            );
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
 
-            // Configuração do CORS
+            
             builder.Services.AddCors(options => {
                 options.AddPolicy(name: "MyPolicy",
                     policy =>
@@ -27,7 +35,16 @@ namespace donet_test
                     });
             });
 
-            // Configure the HTTP request pipeline.
+            var app = builder.Build();
+
+            using (var scope = app.Services.CreateAsyncScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                dbContext.Database.EnsureCreated();
+            }
+
+            app.UseDeveloperExceptionPage();
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
