@@ -16,12 +16,25 @@ namespace donet_test
 
             var app = builder.Build();
 
+            // Configuração do CORS
+            builder.Services.AddCors(options => {
+                options.AddPolicy(name: "MyPolicy",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
