@@ -1,4 +1,7 @@
 using donet_test.Data;
+using donet_test.Model;
+using donet_test.Validator;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace donet_test
@@ -19,6 +22,8 @@ namespace donet_test
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString)
             );
+
+            builder.Services.AddTransient<IValidator<Produto>, ProdutoValidator>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
