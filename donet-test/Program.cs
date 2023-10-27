@@ -34,6 +34,7 @@ namespace donet_test
             builder.Services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
 
             builder.Services.AddScoped<IProdutoService, ProdutoService>();
+            builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
