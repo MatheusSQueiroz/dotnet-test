@@ -9,6 +9,6 @@ namespace donet_test.Service
         Task<IEnumerable<Produto>> GetByNome(string nome);
         Task<Produto?> Create(Produto produto);
         Task<Produto?> Update(Produto produto);
-        Task<Produto?> Delete(long id);
+        Task<Produto?> Delete(Produto produto);
     }
 }
