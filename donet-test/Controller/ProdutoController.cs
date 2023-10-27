@@ -49,6 +49,11 @@ namespace donet_test.Controller
             if (!validarProduto.IsValid)
                 return StatusCode(StatusCodes.Status400BadRequest, validarProduto);
 
+            var Resposta = await _produtoService.Create(produto);
+
+            if (Resposta is null)
+                return BadRequest("Categoria não encontrada");
+
             await _produtoService.Create(produto);
 
             return CreatedAtAction(nameof(GetById), new {id = produto.Id}, produto);
@@ -68,7 +73,7 @@ namespace donet_test.Controller
             var Resposta = await _produtoService.Update(produto);
 
             if (Resposta is null)
-                return NotFound("Produto não encontrado!");
+                return NotFound("Produto e/ou Categoria não encontrado!");
 
             return Ok(Resposta);
         }
