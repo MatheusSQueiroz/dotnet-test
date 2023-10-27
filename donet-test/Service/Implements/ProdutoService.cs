@@ -64,7 +64,7 @@ namespace donet_test.Service.Implements
 
         }
 
-        public Task<Produto?> Delete(Produto produto)
+        public Task Delete(Produto produto)
         {
             throw new NotImplementedException();
         }
