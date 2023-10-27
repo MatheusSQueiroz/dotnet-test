@@ -26,6 +26,7 @@ namespace donet_test
             );
 
             builder.Services.AddTransient<IValidator<Produto>, ProdutoValidator>();
+            builder.Services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
 
             builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
