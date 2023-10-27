@@ -16,5 +16,7 @@ namespace donet_test.Model
 
         [Column(TypeName = "decimal(6,2)")]
         public decimal Preco { get; set; }
+
+        public virtual Categoria? Categoria { get; set; }
     }
 }

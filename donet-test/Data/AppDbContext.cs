@@ -13,6 +13,12 @@ namespace donet_test.Data
         {
             modelBuilder.Entity<Produto>().ToTable("tb_produtos");
             modelBuilder.Entity<Categoria>().ToTable("tb_categorias");
+
+            modelBuilder.Entity<Produto>()
+         .HasOne(p => p.Categoria)
+         .WithMany(c => c.Produto)
+         .HasForeignKey("CategoriaId")
+         .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Produto> Produtos { get; set; } = null!;
