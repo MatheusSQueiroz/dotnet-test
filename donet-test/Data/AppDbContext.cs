@@ -12,9 +12,11 @@ namespace donet_test.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Produto>().ToTable("tb_produtos");
+            modelBuilder.Entity<Categoria>().ToTable("tb_categorias");
         }
 
         public DbSet<Produto> Produtos { get; set; } = null!;
+        public DbSet<Categoria> Categorias { get; set; } = null!;
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
