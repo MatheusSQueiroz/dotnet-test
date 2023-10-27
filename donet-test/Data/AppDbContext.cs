@@ -16,13 +16,14 @@ namespace donet_test.Data
 
         public DbSet<Produto> Produtos { get; set; } = null!;
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var insertedEntries = this.ChangeTracker.Entries()
-                .Where(x => x.State == EntityState.Added)
-                .Select(x => x.Entity);
+                                    .Where(x => x.State == EntityState.Added)
+                                    .Select(x => x.Entity);
 
             return base.SaveChangesAsync(cancellationToken);
+
         }
     }
 }

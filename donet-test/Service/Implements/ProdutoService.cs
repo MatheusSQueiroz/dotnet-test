@@ -40,9 +40,14 @@ namespace donet_test.Service.Implements
             return Produto;
         }
 
-            public Task<Produto?> Create(Produto produto)
+        public async Task<Produto?> Create(Produto produto)
         {
-            throw new NotImplementedException();
+
+            await _context.Produtos.AddAsync(produto);
+            await _context.SaveChangesAsync();
+
+            return produto;
+
         }
 
         public Task<Produto?> Update(Produto produto)
