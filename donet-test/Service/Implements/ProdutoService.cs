@@ -31,9 +31,13 @@ namespace donet_test.Service.Implements
             }
         }
 
-        public Task<IEnumerable<Produto>> GetByNome(string nome)
+        public async Task<IEnumerable<Produto>> GetByNome(string nome)
         {
-            throw new NotImplementedException();
+           var Produto = await _context.Produtos
+                .Where(p => p.Nome.Contains(nome))
+                .ToListAsync();
+
+            return Produto;
         }
 
             public Task<Produto?> Create(Produto produto)

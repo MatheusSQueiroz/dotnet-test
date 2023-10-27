@@ -34,5 +34,12 @@ namespace donet_test.Controller
 
             return Ok(Resposta);
         }
+
+        [HttpGet("titulo/{titulo}")]
+        public async Task<ActionResult> GetByNome(string nome)
+        {
+            return Ok(await _produtoService.GetByNome(nome));
+        }
+
     }
 }
