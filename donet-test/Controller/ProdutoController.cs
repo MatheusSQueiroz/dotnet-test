@@ -23,5 +23,16 @@ namespace donet_test.Controller
         {
             return Ok(await _produtoService.GetAll());
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(long id)
+        {
+            var Resposta = await _produtoService.GetById(id);
+
+            if (Resposta is null)
+                return NotFound();
+
+            return Ok(Resposta);
+        }
     }
 }

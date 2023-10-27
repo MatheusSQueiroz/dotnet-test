@@ -18,9 +18,17 @@ namespace donet_test.Service.Implements
             return await _context.Produtos.ToListAsync();
         }
 
-        public Task<Produto?> GetById(long id)
+        public async Task<Produto?> GetById(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Produto = await _context.Produtos.FirstAsync(p => p.Id == id);
+                return Produto;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public Task<IEnumerable<Produto>> GetByNome(string nome)
