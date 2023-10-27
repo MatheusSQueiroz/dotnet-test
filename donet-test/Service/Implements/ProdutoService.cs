@@ -50,9 +50,18 @@ namespace donet_test.Service.Implements
 
         }
 
-        public Task<Produto?> Update(Produto produto)
+        public async Task<Produto?> Update(Produto produto)
         {
-            throw new NotImplementedException();
+            var ProdutoUpdate = await _context.Produtos.FindAsync(produto.Id);
+
+            if (ProdutoUpdate is null)
+                return null;
+
+            _context.Entry(ProdutoUpdate).State = EntityState.Detached;
+            _context.Entry(produto).State = EntityState.Modified;
+
+            return produto;
+
         }
 
         public Task<Produto?> Delete(long id)

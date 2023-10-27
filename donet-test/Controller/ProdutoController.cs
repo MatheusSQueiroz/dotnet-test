@@ -54,5 +54,24 @@ namespace donet_test.Controller
             return CreatedAtAction(nameof(GetById), new {id = produto.Id}, produto);
         }
 
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] Produto produto)
+        {
+            if(produto.Id == 0)
+                return BadRequest("Id do produto inválido!");
+
+            var validarProduto = await _produtoValidator.ValidateAsync(produto);
+
+            if(!validarProduto.IsValid)
+                return StatusCode(StatusCodes.Status400BadRequest, validarProduto);
+
+            var Resposta = await _produtoService.Update(produto);
+
+            if (Resposta is null)
+                return NotFound("Produto não encontrado!");
+
+            return Ok(Resposta);
+        }
+
     }
 }
