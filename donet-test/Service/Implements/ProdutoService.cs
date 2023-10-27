@@ -15,14 +15,19 @@ namespace donet_test.Service.Implements
 
         public async Task<IEnumerable<Produto>> GetAll()
         {
-            return await _context.Produtos.ToListAsync();
+            return await _context.Produtos
+                .AsNoTracking()
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
         public async Task<Produto?> GetById(long id)
         {
             try
             {
-                var Produto = await _context.Produtos.FirstAsync(p => p.Id == id);
+                var Produto = await _context.Produtos
+                    .Include(p => p.Categoria)
+                    .FirstAsync(p => p.Id == id);
                 return Produto;
             }
             catch
@@ -34,6 +39,7 @@ namespace donet_test.Service.Implements
         public async Task<IEnumerable<Produto>> GetByNome(string nome)
         {
            var Produto = await _context.Produtos
+                .Include(p => p.Categoria)
                 .Where(p => p.Nome.Contains(nome))
                 .ToListAsync();
 
