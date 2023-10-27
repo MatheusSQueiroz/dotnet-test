@@ -73,5 +73,18 @@ namespace donet_test.Controller
             return Ok(Resposta);
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var BuscaProduto = await _produtoService.GetById(id);
+
+            if (BuscaProduto is null)
+                return NotFound("Produto não encontrado!");
+
+            await _produtoService.Delete(BuscaProduto);
+
+            return NoContent();
+        }
+
     }
 }

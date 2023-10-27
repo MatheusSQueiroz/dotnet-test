@@ -64,9 +64,10 @@ namespace donet_test.Service.Implements
 
         }
 
-        public Task Delete(Produto produto)
+        public async Task Delete(Produto produto)
         {
-            throw new NotImplementedException();
+            _context.Produtos.Remove(produto);
+            await _context.SaveChangesAsync();
         }
 
     }
